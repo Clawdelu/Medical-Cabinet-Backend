@@ -8,10 +8,34 @@ namespace MedicalCabinetAPI.Infrastructure
 {
     public static class Queries
     {
-        public const string createMedicalStaff = @"INSERT INTO ""MEDICALSTAFF"" (ID, LastName, FIRSTNAME, Speciality, PhoneNumber) 
+        //Medical Staff section -----------------------------------------------------------------------------
+
+        public const string insertMedicalStaff = @"INSERT INTO ""MEDICALSTAFF"" (ID, LastName, FIRSTNAME, Speciality, PhoneNumber) 
                                         VALUES (:ID, :LastName, :FirstName, :Speciality, :PhoneNumber)";
         public const string getMedStaffById = "SELECT * FROM \"MEDICALSTAFF\" WHERE ID = :medId";
         public const string getMedStaffByName = "SELECT * FROM \"MEDICALSTAFF\" WHERE FirstName = :FirstName";
         public const string getAllMed = @"SELECT * FROM ""MEDICALSTAFF"" ";
+
+        //---------------------------------------------------------------------------------------------------
+
+        //Patient section -----------------------------------------------------------------------------------
+
+        public const string insertPatient = @"INSERT INTO ""PATIENT"" (ID, LastName, FirstName, DateOfBirth, Address, PhoneNumber, ID_medicalStaff)
+                                    VALUES (:ID, :LastName, :FirstName, :DateOfBirth, :Address, :PhoneNumber, :ID_medicalStaff)";
+        public const string deletePatient = "DELETE FROM \"PATIENT\" WHERE ID = :ID";
+        public const string getAllPatients = @"SELECT * FROM ""PATIENT""";
+        public const string getPatientById = "SELECT * FROM \"PATIENT\" WHERE ID = :patientID";
+        public const string getPatientByName = "SELECT * FROM \"PATIENT\" WHERE FirstName = :FirstName";
+        public const string updatePatient = @"UPDATE ""PATIENT"" SET 
+                                    ID = :ID,
+                                    LastName = :LastName,
+                                    FIRSTNAME = :FirstName,
+                                    DateOfBirth = :DateOfBirth,
+                                    Address = :Address,
+                                    PhoneNumber = :PhoneNumber
+                                    ID_medicalStaff = :ID_medicalStaff,
+                                    WHERE ID = :ID";
+
+
     }
 }

@@ -29,7 +29,7 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
             {
                 await connection.OpenAsync();
 
-                using (OracleCommand command = new OracleCommand(Queries.createMedicalStaff, connection))
+                using (OracleCommand command = new OracleCommand(Queries.insertMedicalStaff, connection))
                 {
                     command.Parameters.Add("ID", OracleDbType.Raw).Value = staff.ID;
                     command.Parameters.Add("LastName", OracleDbType.NVarchar2).Value = staff.LastName;
@@ -142,10 +142,10 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
             return null;
         }
 
-        public async Task<MedicalStaff?> GetMedicalStaffByName(string name)
+        public async Task<List<MedicalStaff>?> GetMedicalStaffByName(string name)
         {
             string connectionString = configuration.GetConnectionString("DefaultConnection")!;
-
+            List<MedicalStaff> medicListByName = new List<MedicalStaff>();
             using (OracleConnection connection = new OracleConnection(connectionString))
             {
                 await connection.OpenAsync();
@@ -154,7 +154,7 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
                     command.Parameters.Add("FirstName", OracleDbType.NVarchar2).Value = name;
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
                             MedicalStaff staff = new MedicalStaff
                             {
@@ -166,12 +166,17 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
 
                             };
 
-                            return staff;
+                            medicListByName.Add(staff);
                         }
                     }
                 }
             }
-            return null;
+            if (medicListByName?.Count > 0)
+            {
+                return medicListByName;
+            }
+            else
+                return null;
         }
 
         public async Task UpdateMedicalStaff(MedicalStaff staff)

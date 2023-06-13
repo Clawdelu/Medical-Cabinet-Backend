@@ -13,7 +13,7 @@ namespace MedicalCabinetAPI.Infrastructure.Interfaces
         public Task AddMedicalStaff(MedicalStaff staff);
         public Task<MedicalStaff?> GetMedicalStaffById(Guid id);
         public Task<List<MedicalStaff>?> GetAllMedicalStaff();
-        public Task<MedicalStaff?> GetMedicalStaffByName(string name);
+        public Task<List<MedicalStaff>?> GetMedicalStaffByName(string name);
         public Task UpdateMedicalStaff(MedicalStaff staff);
         public Task DeleteMedicalStaffById(Guid id);
     }

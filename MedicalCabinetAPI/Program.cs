@@ -20,7 +20,7 @@ builder.Services.AddScoped<IMedicalStaffService, MedicalStaffService>();
 builder.Services.AddScoped<IMedicationService, MedicationService>();
 
 builder.Services.AddScoped<IPatientService, PatientService>();
-
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 

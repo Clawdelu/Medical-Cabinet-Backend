@@ -47,13 +47,13 @@ namespace MedicalCabinetAPI.Application.Services
             return staff;
         }
 
-        public async Task<MedicalStaff?> GetMedicByNameAsync(string name)
+        public async Task<List<MedicalStaff>?> GetMedicByNameAsync(string name)
         {
-            var staff = await staffRepository.GetMedicalStaffByName(name);
-            return staff;
+            var listOfStaffByName = await staffRepository.GetMedicalStaffByName(name);
+            return listOfStaffByName;
         }
 
-        public async Task<MedicalStaff> UpdateMedicalStaffByIdAsync(MedicalStaffDto staffDto, Guid Id)
+        public async Task<MedicalStaff?> UpdateMedicalStaffByIdAsync(MedicalStaffDto staffDto, Guid Id)
         {
             var staff = await staffRepository.GetMedicalStaffById(Id);
             if(staff == null)
