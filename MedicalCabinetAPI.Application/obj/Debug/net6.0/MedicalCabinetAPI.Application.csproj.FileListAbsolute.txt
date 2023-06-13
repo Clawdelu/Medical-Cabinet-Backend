@@ -1,0 +1,17 @@
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\bin\Debug\net6.0\MedicalCabinetAPI.Application.deps.json
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\bin\Debug\net6.0\MedicalCabinetAPI.Application.dll
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\bin\Debug\net6.0\MedicalCabinetAPI.Application.pdb
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\bin\Debug\net6.0\MedicalCabinetAPI.Domain.dll
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\bin\Debug\net6.0\MedicalCabinetAPI.Domain.pdb
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\MedicalCabinetAPI.Application.csproj.AssemblyReference.cache
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\MedicalCabinetAPI.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\MedicalCabinetAPI.Application.AssemblyInfoInputs.cache
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\MedicalCabinetAPI.Application.AssemblyInfo.cs
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\MedicalCabinetAPI.Application.csproj.CoreCompileInputs.cache
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\MedicalCabinetAPI.Application.csproj.CopyComplete
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\MedicalCabinetAPI.Application.dll
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\refint\MedicalCabinetAPI.Application.dll
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\MedicalCabinetAPI.Application.pdb
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\obj\Debug\net6.0\ref\MedicalCabinetAPI.Application.dll
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\bin\Debug\net6.0\MedicalCabinetAPI.Infrastructure.dll
+D:\Visual Studio Projects\MedicalCabinetAPI\MedicalCabinetAPI.Application\bin\Debug\net6.0\MedicalCabinetAPI.Infrastructure.pdb
