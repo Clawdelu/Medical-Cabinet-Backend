@@ -36,6 +36,13 @@ namespace MedicalCabinetAPI.Infrastructure
                                     ID_medicalStaff = :ID_medicalStaff,
                                     WHERE ID = :ID";
 
+        //---------------------------------------------------------------------------------------------------
 
+        //Medication section --------------------------------------------------------------------------------
+        public const string insertMedication = @"INSERT INTO ""MEDICATION"" (ID, Name, AvailableQuantity, ExpirationDate, ID_medicalStaff)
+                                    VALUES (:ID, :Name, :AvailableQuantity, :ExpirationDate, :ID_medicalStaff)";
+
+
+        //---------------------------------------------------------------------------------------------------
     }
 }

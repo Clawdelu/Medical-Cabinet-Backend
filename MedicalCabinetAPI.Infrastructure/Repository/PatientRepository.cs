@@ -21,7 +21,7 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
             this.configuration = configuration;
         }
 
-        public async Task AddPatient(Patient patient)
+        public async Task AddPatient(Patient patient) ///NU E GATA...QUERIES. TB FACUTA INTEROGAREA
         {
             string connectionString = configuration.GetConnectionString("DefaultConnection");
 
