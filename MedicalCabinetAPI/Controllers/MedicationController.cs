@@ -36,12 +36,12 @@ namespace MedicalCabinetAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("ID/{id}")]
         public async Task<IActionResult> GetMedicationByIdAsync(Guid id)
         {
             try
             {
-                var medication = await _medicationService.GetMedicationById(id);
+                var medication = await _medicationService.GetMedicationByIdAsync(id);
 
                 return Ok(medication);
             }
@@ -53,12 +53,12 @@ namespace MedicalCabinetAPI.Controllers
             }
         }
 
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetMedicationByName(string name)
+        [HttpGet("name/{name}")]
+        public async Task<IActionResult> GetMedicationByName([FromQuery] string name)
         {
             try
             {
-                var medication = await _medicationService.GetMedicationByName(name);
+                var medication = await _medicationService.GetMedicationByNameAsync(name);
 
                 return Ok(medication);
             }
@@ -91,7 +91,7 @@ namespace MedicalCabinetAPI.Controllers
         {
             try
             {
-                await _medicationService.UpdateMedicationById(medicationDto,id);
+                await _medicationService.UpdateMedicationByIdAsync(medicationDto,id);
 
                 return Ok();
             }
@@ -108,7 +108,7 @@ namespace MedicalCabinetAPI.Controllers
         {
             try
             {
-                await _medicationService.DeleteMedicationById(id);
+                await _medicationService.DeleteMedicationByIdAsync(id);
 
                 return Ok();
             }

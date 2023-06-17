@@ -12,7 +12,7 @@ namespace MedicalCabinetAPI.Application.Interfaces
     {
         public Task<Patient> AddPatientAsync(PatientDto patientDto);
         public Task<List<Patient>?> GetPatientByNameAsync(string name);
-        public Task<Patient> GetPatientByIdAsync(Guid Id);
+        public Task<Patient?> GetPatientByIdAsync(Guid Id);
         public Task<List<Patient>?> GetPatientAsync();
         public Task<Patient?> UpdatePatientByIdAsync(Guid Id, PatientDto patientDto);
         public Task DeletePatientByIdAsync(Guid Id);

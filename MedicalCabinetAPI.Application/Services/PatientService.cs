@@ -50,7 +50,7 @@ namespace MedicalCabinetAPI.Application.Services
             var listOfPatientByName = await patientRepository.GetPatientByName(name);
             return listOfPatientByName;
         }
-        public async Task<Patient> GetPatientByIdAsync(Guid Id)
+        public async Task<Patient?> GetPatientByIdAsync(Guid Id)
         {
             var patient = await patientRepository.GetPatientById(Id);
             return patient;

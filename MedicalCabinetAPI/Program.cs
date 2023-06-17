@@ -18,6 +18,7 @@ builder.Services.AddScoped<IMedicalStaffRepository, MedicalStaffRepository>();
 builder.Services.AddScoped<IMedicalStaffService, MedicalStaffService>();
 
 builder.Services.AddScoped<IMedicationService, MedicationService>();
+builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
 
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();

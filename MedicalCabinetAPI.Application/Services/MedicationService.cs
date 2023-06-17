@@ -2,6 +2,7 @@
 using MedicalCabinetAPI.Application.Interfaces;
 using MedicalCabinetAPI.Application.Models;
 using MedicalCabinetAPI.Domain.Entities;
+using MedicalCabinetAPI.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,38 +14,54 @@ namespace MedicalCabinetAPI.Application.Services
     public class MedicationService : IMedicationService
     {
         private readonly IMapper mapper;
-        public MedicationService(IMapper mapper) {
+        private readonly IMedicationRepository medicationRepository;
+        public MedicationService(IMapper mapper, IMedicationRepository medicationRepository) {
         this.mapper = mapper;
+        this.medicationRepository = medicationRepository;
         }
 
-        public Task<Medication> AddMedicationAsync(MedicationDto medicationDto)
+        public async Task<Medication> AddMedicationAsync(MedicationDto medicationDto)
         {
-            throw new NotImplementedException();
+            var med = mapper.Map<Medication>(medicationDto);
+            med.ID = Guid.NewGuid();
+            await medicationRepository.AddMedication(med);
+
+            return med;
         }
 
-        public Task DeleteMedicationById(Guid Id)
+        public async Task DeleteMedicationByIdAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            await medicationRepository.DeleteMedicationById(Id);
         }
 
-        public Task<Medication> GetMedicationById(Guid Id)
+        public async Task<Medication?> GetMedicationByIdAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var med = await medicationRepository.GetMedicationById(Id);
+            return med;
         }
 
-        public Task<Medication> GetMedicationByName(string name)
+        public async Task<List<Medication>?> GetMedicationByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            var listOfMed = await medicationRepository.GetMedicationByName(name);
+            return listOfMed;
         }
 
-        public Task<List<Medication>> GetMedicationsAsync()
+        public async Task<List<Medication>?> GetMedicationsAsync()
         {
-            throw new NotImplementedException();
+            var listOfMed = await medicationRepository.GetAllMedications();
+            return listOfMed;
         }
 
-        public Task UpdateMedicationById(MedicationDto medicationDto, Guid Id)
+        public async Task<Medication?> UpdateMedicationByIdAsync(MedicationDto medicationDto, Guid Id)
         {
-            throw new NotImplementedException();
+            var medication = await medicationRepository.GetMedicationById(Id);
+            if(medication == null) { throw new Exception("Medication not found"); }
+            var medToUpdate = mapper.Map(medicationDto,medication);
+            await medicationRepository.UpdateMedication(medToUpdate);
+
+            var medReturned = await medicationRepository.GetMedicationById(Id);
+
+            return medReturned;
         }
     }
 }

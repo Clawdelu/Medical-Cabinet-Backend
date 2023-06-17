@@ -33,7 +33,7 @@ namespace MedicalCabinetAPI.Infrastructure
                                     DateOfBirth = :DateOfBirth,
                                     Address = :Address,
                                     PhoneNumber = :PhoneNumber
-                                    ID_medicalStaff = :ID_medicalStaff,
+                                    ID_medicalStaff = :ID_medicalStaff
                                     WHERE ID = :ID";
 
         //---------------------------------------------------------------------------------------------------
@@ -41,7 +41,21 @@ namespace MedicalCabinetAPI.Infrastructure
         //Medication section --------------------------------------------------------------------------------
         public const string insertMedication = @"INSERT INTO ""MEDICATION"" (ID, Name, AvailableQuantity, ExpirationDate, ID_medicalStaff)
                                     VALUES (:ID, :Name, :AvailableQuantity, :ExpirationDate, :ID_medicalStaff)";
+        public const string deleteMedication = "DELETE FROM \"MEDICATION\" WHERE ID = :ID";
+        public const string getAllMedications = @"SELECT * FROM ""MEDICATION""";
+        public const string getMedicationById = "SELECT * FROM \"MEDICATION\" WHERE ID = :medID";
+        public const string getMedicationByName = "SELECT * FROM \"MEDICATION\" WHERE Name = :Name";
+        public const string updateMedication = @"UPDATE ""MEDICATION"" SET 
+                                    ID = :ID,
+                                    Name = :Name,
+                                    AvailableQuantity = :AvailableQuantity,
+                                    ExpirationDate = :ExpirationDate,
+                                    ID_medicalStaff = :ID_medicalStaff                                
+                                    WHERE ID = :ID";
 
+        //---------------------------------------------------------------------------------------------------
+
+        //Consultation section --------------------------------------------------------------------------------
 
         //---------------------------------------------------------------------------------------------------
     }

@@ -30,7 +30,7 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
                 {
                     command.Parameters.Add("ID", OracleDbType.Raw).Value = medication.ID;
                     command.Parameters.Add("Name", OracleDbType.NVarchar2).Value = medication.Name;
-                    command.Parameters.Add("AvailableQuantity", OracleDbType.Int64).Value = medication.AvailableQuantity;
+                    command.Parameters.Add("AvailableQuantity", OracleDbType.Int32).Value = medication.AvailableQuantity;
                     command.Parameters.Add("ExpirationDate", OracleDbType.Date).Value = medication.ExpirationDate;
                     command.Parameters.Add("ID_medicalStaff", OracleDbType.Raw).Value = medication.ID_medicalStaff;
                     
@@ -39,29 +39,150 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
             }
         }
 
-        public Task DeleteMedicationById(Guid id)
+        public async Task DeleteMedicationById(Guid id)
         {
-            throw new NotImplementedException();
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = new OracleCommand(Queries.deleteMedication, connection))
+                {
+                    command.Parameters.Add("ID", OracleDbType.Raw).Value = id;
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
         }
 
-        public Task<List<Medication>?> GetAllMedications()
+        public async Task<List<Medication>?> GetAllMedications()
         {
-            throw new NotImplementedException();
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            List<Medication> medicationList = new List<Medication>();
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = new OracleCommand(Queries.getAllMedications, connection))
+                {
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (reader.Read())
+                        {
+                           // var idDate = reader.GetOrdinal("DateOfBirth");
+                           // var idAvaiQ = reader.GetOrdinal("AvailableQuantity");
+                            Medication med = new Medication
+                            {
+                                ID = new Guid((byte[])reader["ID"]),
+                                Name = reader["Name"].ToString(),
+                                AvailableQuantity = reader.GetInt32(reader.GetOrdinal("AvailableQuantity")),
+                                ExpirationDate = reader.IsDBNull(reader.GetOrdinal("ExpirationDate")) ? new DateTime(1, 1, 1) : reader.GetDateTime(reader.GetOrdinal("ExpirationDate")),                            
+                                ID_medicalStaff = reader.GetGuid(reader.GetOrdinal("ID_medicalStaff"))
+                            };
+
+                            medicationList.Add(med);
+                        }
+                    }
+                }
+            }
+            if (medicationList?.Count > 0)
+            {
+                return medicationList;
+            }
+            else
+                return null;
         }
 
-        public Task<Medication?> GetMedicationById(Guid Id)
+        public async Task<Medication?> GetMedicationById(Guid Id)
         {
-            throw new NotImplementedException();
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = new OracleCommand(Queries.getMedicationById, connection))
+                {
+                    command.Parameters.Add("medID", OracleDbType.Raw).Value = Id;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (reader.Read())
+                        {
+                            Medication med = new Medication
+                            {
+                                ID = new Guid((byte[])reader["ID"]),
+                                Name = reader["Name"].ToString(),
+                                AvailableQuantity = reader.GetInt32(reader.GetOrdinal("AvailableQuantity")),
+                                ExpirationDate = reader.IsDBNull(reader.GetOrdinal("ExpirationDate")) ? new DateTime(1, 1, 1) : reader.GetDateTime(reader.GetOrdinal("ExpirationDate")),
+                                ID_medicalStaff = reader.GetGuid(reader.GetOrdinal("ID_medicalStaff"))
+                            };
+                            return med;
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
-        public Task<List<Medication>?> GetMedicationByName(string name)
+        public async Task<List<Medication>?> GetMedicationByName(string name)
         {
-            throw new NotImplementedException();
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            List<Medication> medicationList = new List<Medication>();
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = new OracleCommand(Queries.getMedicationByName, connection))
+                {
+                    command.Parameters.Add("Name", OracleDbType.NVarchar2).Value = name;
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (reader.Read())
+                        {
+                            Medication med = new Medication
+                            {
+                                ID = new Guid((byte[])reader["ID"]),
+                                Name = reader["Name"].ToString(),
+                                AvailableQuantity = reader.GetInt32(reader.GetOrdinal("AvailableQuantity")),
+                                ExpirationDate = reader.IsDBNull(reader.GetOrdinal("ExpirationDate")) ? new DateTime(1, 1, 1) : reader.GetDateTime(reader.GetOrdinal("ExpirationDate")),
+                                ID_medicalStaff = reader.GetGuid(reader.GetOrdinal("ID_medicalStaff"))
+                            };
+
+                            medicationList.Add(med);
+                        }
+                    }
+                }
+            }
+            if (medicationList?.Count > 0)
+            {
+                return medicationList;
+            }
+            else
+                return null;
         }
 
-        public Task UpdateMedication(Medication medication)
+        public async Task UpdateMedication(Medication medication)
         {
-            throw new NotImplementedException();
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = new OracleCommand(Queries.updateMedication, connection))
+                {
+                    command.Parameters.Add("ID", OracleDbType.Raw).Value = medication.ID;
+                    command.Parameters.Add("Name", OracleDbType.NVarchar2).Value = medication.Name;
+                    command.Parameters.Add("AvailableQuantity", OracleDbType.Int32).Value = medication.AvailableQuantity;
+                    command.Parameters.Add("ExpirationDate", OracleDbType.Date).Value = medication.ExpirationDate;
+                    command.Parameters.Add("ID_medicalStaff", OracleDbType.Raw).Value = medication.ID_medicalStaff;
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
         }
     }
 }

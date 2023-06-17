@@ -11,10 +11,10 @@ namespace MedicalCabinetAPI.Application.Interfaces
     public interface IMedicationService
     {
         public Task<Medication> AddMedicationAsync(MedicationDto medicationDto);
-        public Task<Medication> GetMedicationByName(string name);
-        public Task<Medication> GetMedicationById(Guid Id);
-        public Task<List<Medication>> GetMedicationsAsync();
-        public Task UpdateMedicationById(MedicationDto medicationDto, Guid Id);
-        public Task DeleteMedicationById(Guid Id);
+        public Task<List<Medication>?> GetMedicationByNameAsync(string name);
+        public Task<Medication?> GetMedicationByIdAsync(Guid Id);
+        public Task<List<Medication>?> GetMedicationsAsync();
+        public Task<Medication?> UpdateMedicationByIdAsync(MedicationDto medicationDto, Guid Id);
+        public Task DeleteMedicationByIdAsync(Guid Id);
     }
 }

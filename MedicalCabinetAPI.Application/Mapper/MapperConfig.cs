@@ -26,6 +26,8 @@ namespace MedicalCabinetAPI.Application.Mapper
              .ForMember(dest => dest.ID_medicalStaff, opt => opt.MapFrom(src => Guid.Parse(src.ID_medicalStaff)));
             */
             CreateMap<Medication, MedicationDto>();
+            CreateMap<MedicationDto, Medication>();
+
             CreateMap<Consultation, ConsultationDto>();
 
         }
