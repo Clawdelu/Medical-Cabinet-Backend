@@ -36,7 +36,7 @@ namespace MedicalCabinetAPI.Controllers
             }
         }
 
-       /* [HttpGet("{name}")]
+        [HttpGet("name/{name}")]
         public async Task<IActionResult> GetPatientByNameAsync(string name)
         {
             try
@@ -51,8 +51,8 @@ namespace MedicalCabinetAPI.Controllers
 
                 return BadRequest(ex.Message);
             }
-        }*/
-        [HttpGet("{id}")]
+        }
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetPatientByIdAsync(Guid id)
         {
             try

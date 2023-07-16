@@ -23,7 +23,7 @@ namespace MedicalCabinetAPI.Controllers
         {
             try
             {
-                var consultation = await _consulationService.GetConsultationAsync();
+                var consultation = await _consulationService.GetConsultationsAsync();
 
                 return Ok(consultation);
             }
@@ -35,7 +35,7 @@ namespace MedicalCabinetAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("Id/{id}")]
         public async Task<IActionResult> GetConsultationByIdAsync(Guid id)
         {
             try
@@ -52,12 +52,12 @@ namespace MedicalCabinetAPI.Controllers
             }
         }
 
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetConsultationByNameAsync(string name)
+        [HttpGet("patientId/{patientId}")]
+        public async Task<IActionResult> GetConsultationByPatientIdAsync(Guid patientId)
         {
             try
             {
-                var consultation = await _consulationService.GetConsultationByNameAsync(name);
+                var consultation = await _consulationService.GetConsultationByPatientIdAsync(patientId);
 
                 return Ok(consultation);
             }
@@ -87,11 +87,11 @@ namespace MedicalCabinetAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateConsultationByIdAsync([FromBody] ConsultationDto consultationDto, Guid id)
+        public async Task<IActionResult> UpdateConsultationByIdAsync([FromBody] ConsultationUpdate consultationUpdate, Guid id)
         {
             try
             {
-               await _consulationService.UpdateConsultationByIdAsync(consultationDto,id);
+               await _consulationService.UpdateConsultationByIdAsync(consultationUpdate, id);
 
                 return Ok();
             }

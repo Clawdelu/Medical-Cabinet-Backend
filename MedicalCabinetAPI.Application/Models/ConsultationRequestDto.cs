@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace MedicalCabinetAPI.Application.Models
 {
-    public class ConsultationDto
+    public class ConsultationRequestDto
     {
+        public Guid ID { get; set; }
         public Guid ID_Patient { get; set; }
         public Guid ID_MedicalStaff { get; set; }
         public DateTime DateOfConsultation { get; set; }
         public string? Symptoms { get; set; }
         public string? Diagnosis { get; set; }
-        public List<Cons_MedicDto>? ListConsMedic { get; set; }
-
+        public List<Cons_Medic>? ListOfCons_Medic { get; set; }
     }
 }

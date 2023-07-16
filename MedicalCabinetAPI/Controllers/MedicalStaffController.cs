@@ -18,7 +18,7 @@ namespace MedicalCabinetAPI.Controllers
             this._logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("all-soft")]
         public async Task<IActionResult> GetAllMedicalStaffAsync()
         {
             try
@@ -35,7 +35,24 @@ namespace MedicalCabinetAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllMedicalStaffHardAsync()
+        {
+            try
+            {
+                var listOfStaff = await _medicalStaffService.GetMedicalStaffHardAsync();
+
+                return Ok(listOfStaff);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetMedicalStaffByIdAsync(Guid id)
         {
             try
@@ -52,7 +69,7 @@ namespace MedicalCabinetAPI.Controllers
             }
         }
 
-      /*  [HttpGet("{name}")]
+        [HttpGet("name/{name}")]
         public async Task<IActionResult> GetMedicalStaffByNameAsync(string name)
         {
             try
@@ -67,7 +84,7 @@ namespace MedicalCabinetAPI.Controllers
 
                 return BadRequest(ex.Message);
             }
-        }*/
+        }
         [HttpPost]
         public async Task<IActionResult> AddMedicalStaff(MedicalStaffDto medicalStaffDto)
         {
@@ -102,12 +119,29 @@ namespace MedicalCabinetAPI.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("soft-delete")]
         public async Task<IActionResult> DeleteMedicalStaffById(Guid id)
         {
             try
             {
                 await _medicalStaffService.DeleteMedicalStaffByIdAsync(id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> DeleteMedicalStaffByIdHARD(Guid id)
+        {
+            try
+            {
+                await _medicalStaffService.DeleteMedicalStaffByIdHardAsync(id);
 
                 return Ok();
             }

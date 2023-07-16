@@ -16,5 +16,8 @@ namespace MedicalCabinetAPI.Infrastructure.Interfaces
         public Task<List<MedicalStaff>?> GetMedicalStaffByName(string name);
         public Task UpdateMedicalStaff(MedicalStaff staff);
         public Task DeleteMedicalStaffById(Guid id);
+
+        public Task DeleteMedicalStaffByIdHard(Guid id);
+        public Task<List<MedicalStaff>?> GetAllMedicalStaffHard();
     }
 }

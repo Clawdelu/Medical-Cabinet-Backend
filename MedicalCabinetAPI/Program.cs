@@ -24,6 +24,10 @@ builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
+
+builder.Services.AddScoped<ICons_MedicRepository, Cons_MedicRepository>();
+builder.Services.AddScoped<ICons_MedicService, Cons_MedicService>();
 
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));

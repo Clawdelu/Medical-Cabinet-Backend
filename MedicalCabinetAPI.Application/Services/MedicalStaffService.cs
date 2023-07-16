@@ -34,10 +34,19 @@ namespace MedicalCabinetAPI.Application.Services
         {
             await staffRepository.DeleteMedicalStaffById(Id);
         }
+        public async Task DeleteMedicalStaffByIdHardAsync(Guid Id)
+        {
+            await staffRepository.DeleteMedicalStaffByIdHard(Id);
+        }
 
         public async Task<List<MedicalStaff>?> GetMedicalStaffAsync()
         {
             var listOfStaff = await staffRepository.GetAllMedicalStaff();
+            return listOfStaff;
+        }
+        public async Task<List<MedicalStaff>?> GetMedicalStaffHardAsync()
+        {
+            var listOfStaff = await staffRepository.GetAllMedicalStaffHard();
             return listOfStaff;
         }
         public async Task<MedicalStaff?> GetMedicalStaffByIdAsync(Guid Id)

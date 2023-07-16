@@ -2,6 +2,7 @@
 {
     public record Cons_Medic
     {
+        public Guid ID { get; set; }
         public Guid ID_consultation { get; set; }
         public Guid ID_medication { get; set; }
         public int PrescribedDoseMedication { get; set; }

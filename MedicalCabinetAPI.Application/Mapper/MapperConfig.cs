@@ -29,6 +29,15 @@ namespace MedicalCabinetAPI.Application.Mapper
             CreateMap<MedicationDto, Medication>();
 
             CreateMap<Consultation, ConsultationDto>();
+            CreateMap<ConsultationDto, Consultation>();
+
+            CreateMap<Cons_Medic, Cons_MedicDto>();
+            CreateMap<Cons_MedicDto, Cons_Medic>();
+
+            CreateMap<Consultation, ConsultationRequestDto>();
+
+            CreateMap<ConsultationUpdate, Consultation>();
+            CreateMap<Cons_Medic, Cons_Medic>();
 
         }
     }

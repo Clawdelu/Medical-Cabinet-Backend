@@ -36,6 +36,7 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
                     command.Parameters.Add("FirstName", OracleDbType.NVarchar2).Value = staff.FirstName;
                     command.Parameters.Add("Speciality", OracleDbType.NVarchar2).Value = staff.Speciality;
                     command.Parameters.Add("PhoneNumber", OracleDbType.NVarchar2).Value = staff.PhoneNumber;
+                    command.Parameters.Add("DELETEMS", OracleDbType.Int32).Value = 0;
 
                     await command.ExecuteNonQueryAsync();
                 }
@@ -51,7 +52,28 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
             {
                 await connection.OpenAsync();
 
-                string query = "DELETE FROM \"MEDICALSTAFF\" WHERE ID = :ID";
+                // string query = "DELETE FROM \"MEDICALSTAFF\" WHERE ID = :ID"; //hard delete
+                string query = "UPDATE \"MEDICALSTAFF\" SET DELETEMS = 1 WHERE ID = :ID";
+
+                using (OracleCommand command = new OracleCommand(query, connection))
+                {
+                    command.Parameters.Add("ID", OracleDbType.Raw).Value = id;
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
+        public async Task DeleteMedicalStaffByIdHard(Guid id)
+        {
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                 string query = "DELETE FROM \"MEDICALSTAFF\" WHERE ID = :ID"; //hard delete
+                //string query = "UPDATE \"MEDICALSTAFF\" SET DELETEMS = 1 WHERE ID = :ID";
 
                 using (OracleCommand command = new OracleCommand(query, connection))
                 {
@@ -85,6 +107,7 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
                                 FirstName = reader["FIRSTNAME"].ToString(),
                                 Speciality = reader["Speciality"].ToString(),
                                 PhoneNumber = reader["PhoneNumber"].ToString(),
+                                DeleteMS = reader.GetInt32(reader.GetOrdinal("DELETEMS"))
 
                                 /*ID = reader.GetGuid(reader.GetOrdinal("ID")),
                                 LastName = reader.GetString(reader.GetOrdinal("LASTNAME")),
@@ -105,6 +128,52 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
             }
             else
             return null;
+        }
+
+        public async Task<List<MedicalStaff>?> GetAllMedicalStaffHard()
+        {
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            List<MedicalStaff> medicalStaffList = new List<MedicalStaff>();
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (OracleCommand command = new OracleCommand(Queries.getAllMedHard, connection))
+                {
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (reader.Read())
+                        {
+                            MedicalStaff staff = new MedicalStaff
+                            {
+
+                                ID = new Guid((byte[])reader["ID"]),
+                                LastName = reader["LastName"].ToString(),
+                                FirstName = reader["FIRSTNAME"].ToString(),
+                                Speciality = reader["Speciality"].ToString(),
+                                PhoneNumber = reader["PhoneNumber"].ToString(),
+                                DeleteMS = reader.GetInt32(reader.GetOrdinal("DELETEMS"))
+
+                                /*ID = reader.GetGuid(reader.GetOrdinal("ID")),
+                                LastName = reader.GetString(reader.GetOrdinal("LASTNAME")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FIRSTNAME")),
+                                Speciality = reader.GetString(reader.GetOrdinal("SPECIALITY")),
+                                PhoneNumber = reader.GetString(reader.GetOrdinal("PHONENUMBER")),*/
+
+                            };
+
+                            medicalStaffList.Add(staff);
+                        }
+                    }
+                }
+            }
+            if (medicalStaffList?.Count > 0)
+            {
+                return medicalStaffList;
+            }
+            else
+                return null;
         }
 
         public async Task<MedicalStaff?> GetMedicalStaffById(Guid id)
@@ -131,7 +200,8 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
                                 FirstName = reader["FirstName"].ToString(),
                                 Speciality = reader["Speciality"].ToString(),
                                 PhoneNumber = reader["PhoneNumber"].ToString(),
-                                
+                                DeleteMS = reader.GetInt32(reader.GetOrdinal("DELETEMS"))
+
                             };
 
                             return staff;
@@ -163,6 +233,7 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
                                 FirstName = reader["FirstName"].ToString(),
                                 Speciality = reader["Speciality"].ToString(),
                                 PhoneNumber = reader["PhoneNumber"].ToString(),
+                                DeleteMS = reader.GetInt32(reader.GetOrdinal("DELETEMS"))
 
                             };
 

@@ -54,7 +54,7 @@ namespace MedicalCabinetAPI.Controllers
         }
 
         [HttpGet("name/{name}")]
-        public async Task<IActionResult> GetMedicationByName([FromQuery] string name)
+        public async Task<IActionResult> GetMedicationByName(string name)
         {
             try
             {

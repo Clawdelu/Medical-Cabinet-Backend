@@ -190,7 +190,7 @@ namespace MedicalCabinetAPI.Infrastructure.Repository
                     command.Parameters.Add("ID", OracleDbType.Raw).Value = patient.ID;
                     command.Parameters.Add("LastName", OracleDbType.NVarchar2).Value = patient.LastName;
                     command.Parameters.Add("FirstName", OracleDbType.NVarchar2).Value = patient.FirstName;
-                    command.Parameters.Add("DateOfBirth", OracleDbType.NVarchar2).Value = patient.DateOfBirth;
+                    command.Parameters.Add("DateOfBirth", OracleDbType.Date).Value = patient.DateOfBirth;
                     command.Parameters.Add("Address", OracleDbType.NVarchar2).Value = patient.Address;
                     command.Parameters.Add("PhoneNumber", OracleDbType.NVarchar2).Value = patient.PhoneNumber;
                     command.Parameters.Add("ID_medicalStaff", OracleDbType.Raw).Value = patient.ID_medicalStaff;

@@ -10,11 +10,12 @@ namespace MedicalCabinetAPI.Infrastructure
     {
         //Medical Staff section -----------------------------------------------------------------------------
 
-        public const string insertMedicalStaff = @"INSERT INTO ""MEDICALSTAFF"" (ID, LastName, FIRSTNAME, Speciality, PhoneNumber) 
-                                        VALUES (:ID, :LastName, :FirstName, :Speciality, :PhoneNumber)";
+        public const string insertMedicalStaff = @"INSERT INTO ""MEDICALSTAFF"" (ID, LastName, FIRSTNAME, Speciality, PhoneNumber, DELETEMS) 
+                                        VALUES (:ID, :LastName, :FirstName, :Speciality, :PhoneNumber, :DELETEMS)";
         public const string getMedStaffById = "SELECT * FROM \"MEDICALSTAFF\" WHERE ID = :medId";
-        public const string getMedStaffByName = "SELECT * FROM \"MEDICALSTAFF\" WHERE FirstName = :FirstName";
-        public const string getAllMed = @"SELECT * FROM ""MEDICALSTAFF"" ";
+        public const string getMedStaffByName = "SELECT * FROM \"MEDICALSTAFF\" WHERE UPPER(FirstName) = :FirstName";
+        public const string getAllMed = @"SELECT * FROM ""MEDICALSTAFF"" WHERE DELETEMS = 0 ";
+        public const string getAllMedHard = @"SELECT * FROM ""MEDICALSTAFF""";
 
         //---------------------------------------------------------------------------------------------------
 
@@ -32,9 +33,9 @@ namespace MedicalCabinetAPI.Infrastructure
                                     FIRSTNAME = :FirstName,
                                     DateOfBirth = :DateOfBirth,
                                     Address = :Address,
-                                    PhoneNumber = :PhoneNumber
+                                    PhoneNumber = :PhoneNumber,
                                     ID_medicalStaff = :ID_medicalStaff
-                                    WHERE ID = :ID";
+                                    WHERE ID = :ID ";
 
         //---------------------------------------------------------------------------------------------------
 
@@ -56,6 +57,38 @@ namespace MedicalCabinetAPI.Infrastructure
         //---------------------------------------------------------------------------------------------------
 
         //Consultation section --------------------------------------------------------------------------------
+        public const string insertConsultation = @"INSERT INTO ""CONSULTATION"" (ID, ID_Patient, ID_MedicalStaff, DateOfConsultation, Symptoms, Diagnosis)
+                                    VALUES (:ID, :ID_Patient, :ID_MedicalStaff, :DateOfConsultation, :Symptoms, :Diagnosis)";
+        public const string deleteConsultation = "DELETE FROM \"CONSULTATION\" WHERE ID = :ID";
+        public const string getAllConsultation = @"SELECT * FROM ""CONSULTATION""";
+        public const string getConsultationById = "SELECT * FROM \"CONSULTATION\" WHERE ID = :consID";
+        public const string getConsultationByPatientId = "SELECT * FROM \"CONSULTATION\" WHERE ID_Patient = :patientID";
+        public const string updateConsultation = @"UPDATE ""CONSULTATION"" SET 
+                                    ID = :ID,
+                                    ID_Patient = :ID_Patient,
+                                    ID_MedicalStaff = :ID_MedicalStaff,
+                                    DateOfConsultation = :DateOfConsultation,
+                                    Symptoms = :Symptoms,
+                                    Diagnosis = :Diagnosis
+                                    WHERE ID = :ID";      
+
+        //---------------------------------------------------------------------------------------------------
+
+        //CONS_MEDIC section --------------------------------------------------------------------------------
+       
+        public const string insertCons_Medic = @"INSERT INTO ""CONS_MEDIC"" (ID ,ID_consultation, ID_medication, PrescribedDoseMedication, PeriodOfTreatment)
+                                            VALUES (:ID, :ID_consultation, :ID_medication, :PrescribedDoseMedication, :PeriodOfTreatment)";
+        public const string deleteCons_Medic = "DELETE FROM \"CONS_MEDIC\" WHERE ID_consultation = :ID";
+        public const string getCons_MedicByConsultationId = "SELECT * FROM \"CONS_MEDIC\" WHERE ID_consultation = :ID_consultation";
+        public const string updateCons_Medic = @"UPDATE ""CONS_MEDIC"" SET 
+                                    ID = :ID,
+                                    ID_consultation = :ID_consultation,
+                                    ID_medication = :ID_medication,
+                                    PrescribedDoseMedication = :PrescribedDoseMedication,
+                                    PeriodOfTreatment = :PeriodOfTreatment                                   
+                                    WHERE ID = :ID";
+        public const string getCons_MedicById = "SELECT * FROM \"CONS_MEDIC\" WHERE ID = :ID";
+
 
         //---------------------------------------------------------------------------------------------------
     }

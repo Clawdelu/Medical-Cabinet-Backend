@@ -16,6 +16,8 @@ namespace MedicalCabinetAPI.Application.Interfaces
         public Task<List<MedicalStaff>?> GetMedicalStaffAsync();
         public Task<MedicalStaff?> UpdateMedicalStaffByIdAsync(MedicalStaffDto staffDto, Guid Id);
         public Task DeleteMedicalStaffByIdAsync(Guid Id);
+        public Task DeleteMedicalStaffByIdHardAsync(Guid Id);
+        public  Task<List<MedicalStaff>?> GetMedicalStaffHardAsync();
 
     }
 }
